@@ -53,7 +53,7 @@ func (j *TaskJob) run() {
                      }
                  case <-j.done:
                      if f,ok := j.replies["finish"]; ok {
-                         f(Reply{})
+                         f(successResult)
                      }
                      return
                  case <-j.stop:

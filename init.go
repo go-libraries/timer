@@ -9,7 +9,6 @@ import (
 var successResult = Reply{
     Code:200,
     Msg:"操作成功",
-    Uuid:"",
     Err:nil,
 }
 
@@ -24,6 +23,5 @@ func init()  {
         stop:   make(chan struct{}),
         remove: make(chan string),
         Logger: log.New(os.Stdout, "[Control]: ", log.Ldate|log.Ltime|log.Lshortfile),
-        lock:	false,
     }
 }

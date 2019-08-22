@@ -17,11 +17,15 @@ var TS *TaskScheduler
 func init()  {
     TS = &TaskScheduler{
         tasks:  new(sync.Map),
-        swap:   new(sync.Map),
         running:new(sync.Map),
         add:    make(chan TaskInterface),
         stop:   make(chan struct{}),
         remove: make(chan string),
         Logger: log.New(os.Stdout, "[Control]: ", log.Ldate|log.Ltime|log.Lshortfile),
     }
+    T
+}
+
+func GetTaskScheduler() *TaskScheduler {
+    return TS
 }

@@ -10,7 +10,6 @@ type Reply struct {
 
 type TaskScheduler struct {
     tasks   *sync.Map
-    swap    *sync.Map
     running *sync.Map
     add     chan TaskInterface
     remove  chan string

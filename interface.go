@@ -3,10 +3,10 @@ package timer
 type IJob interface {
     Run()
     OnStart(f func(reply Reply))
-    OnStop(f func(reply Reply))
+    OnStop(f func(reply Reply)) //todo: sign how todo
     OnFinish(f func(reply Reply))
-    OnSuccess(f func(reply Reply))
     OnError(f func(reply Reply))
+    Stop()
 }
 
 type TaskInterface interface {
@@ -21,6 +21,7 @@ type TaskSetInterface interface {
     SetSpacing(spacing int64) TaskSetInterface
     SetEndTime(endTime int64) TaskSetInterface
     SetRunNumber(number int) TaskSetInterface
+    SetStatus(status int) TaskSetInterface
 }
 
 type TaskGetInterface interface{
@@ -31,6 +32,7 @@ type TaskGetInterface interface{
     GetSpacing() int64
     GetEndTime() int64
     GetRunNumber() int
+    GetStatus() int
 }
 
 type TaskLogInterface interface {

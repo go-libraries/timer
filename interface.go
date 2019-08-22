@@ -1,6 +1,6 @@
 package timer
 
-type Job interface {
+type IJob interface {
     Run()
     OnStart(f func(reply Reply))
     OnStop(f func(reply Reply))
@@ -15,7 +15,7 @@ type TaskInterface interface {
 }
 
 type TaskSetInterface interface {
-    SetJob(job Job) TaskSetInterface
+    SetJob(job IJob) TaskSetInterface
     SetRuntime(runtime int64) TaskSetInterface
     SetUuid(uuid string) TaskSetInterface
     SetSpacing(spacing int64) TaskSetInterface
@@ -25,7 +25,7 @@ type TaskSetInterface interface {
 
 type TaskGetInterface interface{
     RunJob()
-    GetJob()  Job
+    GetJob()  IJob
     GetUuid() string
     GetRunTime() int64
     GetSpacing() int64

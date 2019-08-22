@@ -9,6 +9,7 @@ import (
 var successResult = Reply{
     Code:200,
     Msg:"操作成功",
+    Uuid:"",
     Err:nil,
 }
 
@@ -25,10 +26,4 @@ func init()  {
         Logger: log.New(os.Stdout, "[Control]: ", log.Ldate|log.Ltime|log.Lshortfile),
         lock:	false,
     }
-
-    //task := getTaskWithFuncSpacing(3600, time.Now().Add(time.Hour * 24 * 365).UnixNano(), func() {
-    //    log.Println("It's a Hour timer!")
-    //})
-    //scheduler.tasks = append(scheduler.tasks, task)
-    //go scheduler.run()
 }

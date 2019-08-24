@@ -2,6 +2,7 @@ package timer
 
 import (
     "github.com/pkg/errors"
+    "runtime"
 )
 
 //default Job
@@ -34,6 +35,7 @@ func (j *TaskJob) OnError(f func(reply Reply))  {
 func (j *TaskJob) run() {
     go j.Run()
 
+
     for {
         select {
              case e := <-j.err:
@@ -57,8 +59,8 @@ func (j *TaskJob) run() {
                      }
                      return
                  case <-j.stop:
-                        //todo: how to do
-
+                     //todo:
+                     runtime.Goexit()
         }
     }
 }

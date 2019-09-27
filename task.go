@@ -81,7 +81,6 @@ func (task *Task)  GetStatus() int {
 func getJob(f func()) *TaskJob {
     return &TaskJob{
         Fn:f,
-        start:  make(chan bool,1),
         stop:   make(chan bool,1),
         err:    make(chan error,1),
         done:   make(chan bool,1),

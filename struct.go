@@ -6,6 +6,7 @@ type Reply struct {
     Code int64 `json:"code"`
     Msg string `json:"msg"`
     Err error   `json:"err"`
+    Ts  Task  `json:"task"`
 }
 
 type TaskScheduler struct {

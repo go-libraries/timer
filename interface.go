@@ -2,6 +2,8 @@ package timer
 
 type IJob interface {
     Run()
+    GetTask() TaskInterface
+    SetTask(Task TaskInterface)
     OnStart(f func(reply Reply))
     OnStop(f func(reply Reply)) //todo: sign how todo
     OnFinish(f func(reply Reply))

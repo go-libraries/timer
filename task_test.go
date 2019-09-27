@@ -21,7 +21,7 @@ func TestTime(t *testing.T) {
 
     fmt.Println(t1, err, err1, err2, sTime, eTime)
     if cal >= sTime && cal <= eTime {
-        fmt.Println(cal )
+        fmt.Println(cal)
     }
 
 }
@@ -107,6 +107,37 @@ func Test_AddTask(t *testing.T) {
         }),
         RunTime: time.Now().UnixNano() + +int64(time.Second*4),
     })
+
+    timer := time.NewTimer(10 * time.Second)
+    for {
+        select {
+        case <-timer.C:
+            fmt.Println("over")
+        }
+        break
+    }
+}
+
+
+func Test_JobStartEvent(t *testing.T) {
+    cron := GetTaskScheduler()
+    cron.Start()
+    f := func() {
+        fmt.Println("hello")
+    }
+    t1 := &Task{
+        Job:    getJob(f),
+        RunTime: time.Now().UnixNano()+ int64(time.Second)*1,
+        Spacing: int64(3*time.Second),
+        EndTime: time.Now().UnixNano() + int64(time.Second*20),
+        Uuid:	 "123",
+    }
+    f1 := func(reply Reply) {
+        fmt.Println(reply)
+        fmt.Println("It's reply")
+    }
+    t1.GetJob().OnStart(f1)
+    cron.AddTask(t1)
 
     timer := time.NewTimer(10 * time.Second)
     for {

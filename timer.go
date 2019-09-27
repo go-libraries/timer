@@ -10,18 +10,18 @@ import (
 //add spacing time job to list with number
 func (scheduler *TaskScheduler) AddFuncSpaceNumber(spaceTime int64, number int, f func()) {
     task := getTaskWithFuncSpacingNumber(spaceTime, number, f)
-    scheduler.addTask(task)
+    scheduler.AddTask(task)
 }
 //add spacing time job to list with endTime
 func (scheduler *TaskScheduler) AddFuncSpace(spaceTime int64, endTime int64, f func()) {
     task := getTaskWithFuncSpacing(spaceTime, endTime, f)
-    scheduler.addTask(task)
+    scheduler.AddTask(task)
 }
 
 //add func to list
 func (scheduler *TaskScheduler) AddFunc(unixTime int64, f func()) {
     task := getTaskWithFunc(unixTime, f)
-    scheduler.addTask(task)
+    scheduler.AddTask(task)
 }
 
 func (scheduler *TaskScheduler) AddTaskInterface(task TaskInterface) {
@@ -94,7 +94,7 @@ func (scheduler *TaskScheduler) StopOnce(uuidStr string) {
 //run Cron
 func (scheduler *TaskScheduler) Start() {
     //初始化的時候加入一個一年的長定時器,間隔1小時執行一次
-    task := getTaskWithFuncSpacing(3600, time.Now().Add(time.Hour * 24 * 365).UnixNano(), func() {
+    task := getTaskWithFuncSpacing(int64(3600*time.Second), time.Now().Add(time.Hour * 24 * 365).UnixNano(), func() {
         log.Println("It's a Hour timer!")
     })
     scheduler.tasks.Store(task.Uuid, task)
@@ -113,6 +113,7 @@ func (scheduler *TaskScheduler) run() {
     for {
         now := time.Now()
         task := scheduler.GetTask()
+        task.GetJob().SetTask(task)
         runTime := task.GetRunTime()
         i64 := runTime - now.UnixNano()
 
@@ -179,6 +180,7 @@ func (scheduler *TaskScheduler) GetTask() (task TaskInterface) {
         return true
     })
 
+    scheduler.tasks.Delete(task.GetUuid())
     return task
 }
 

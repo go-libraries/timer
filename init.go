@@ -23,7 +23,6 @@ func init()  {
         remove: make(chan string),
         Logger: log.New(os.Stdout, "[Control]: ", log.Ldate|log.Ltime|log.Lshortfile),
     }
-    T
 }
 
 func GetTaskScheduler() *TaskScheduler {
